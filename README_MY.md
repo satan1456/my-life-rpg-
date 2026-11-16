@@ -1,28 +1,21 @@
-# MY LIFE RPG — Cloud Starter (Android Browser Setup)
+# MY LIFE RPG — Cloud Starter
 
-ဒီ Project ကို Termux မလိုဘဲ GitHub + Render ကနေ deploy လုပ်နိုင်ရန် ပြင်ဆင်ထားပါတယ်။
+ဤသည် Chapter 1 အတွက် စမ်းသပ် Cloud Starter ဖြစ်သည်။ Full game မဟုတ်သေးပါ။
 
-## 1) GitHub ထဲတင်ရန်
-1. Chrome မှ https://github.com ကိုဖွင့်ပြီး account ဝင်ပါ။
-2. New repository ကိုနှိပ်ပြီး `my-life-rpg` လို့နာမည်ပေးပါ။ Public သို့မဟုတ် Private ရွေးနိုင်ပါတယ်။
-3. Add file → Upload files ကိုနှိပ်ပါ။ ZIP ကို အရင်ဖုန်းထဲ Extract လုပ်ပြီး အထဲက ဖိုင်/ဖိုလ်ဒါအားလုံးကို upload လုပ်ပါ။
-4. Commit changes ကိုနှိပ်ပါ။
+## GitHub / Render ဖြင့် Deploy လုပ်ရန်
 
-## 2) Telegram Bot Token
-1. https://t.me/BotFather ကိုဖွင့်ပါ။
-2. `/newbot` ပို့ပြီး Bot နာမည်နှင့် username သတ်မှတ်ပါ။
-3. ရလာတဲ့ token ကို လျှို့ဝှက်ထားပါ။ GitHub ထဲ မတင်ပါနှင့်။
+1. ဖိုင်အားလုံးကို GitHub repository root ထဲတင်ပါ။
+2. Render Dashboard → New → Web Service → GitHub repository ကိုရွေးပါ။
+3. Runtime: Python, Build Command: `pip install -r requirements.txt`, Start Command: `python bot.py`
+4. Environment Variables ထဲတွင်:
+   - `BOT_TOKEN` = BotFather မှရသော token (လျှို့ဝှက်ထားပါ)
+   - `WEBHOOK_SECRET` = ခန့်မှန်းရခက်သော စကားလုံးတစ်ခု
+   - `RENDER_EXTERNAL_URL` ကို Render က အလိုအလျောက်ပေးနိုင်ပါက ထည့်ရန်မလိုပါ။ မပေးပါက `https://သင့်-service.onrender.com` ထည့်ပါ။
+5. Deploy ပြီး Telegram bot ကို `/start` ပို့ပါ။
 
-## 3) Render Deploy
-1. https://render.com ကိုဖွင့်ပြီး GitHub ဖြင့် sign up / sign in လုပ်ပါ။
-2. New → Blueprint ကိုရွေးပြီး `my-life-rpg` repository ကိုချိတ်ပါ။
-3. Deploy လုပ်ပါ။ `render.yaml` က service ကိုဖန်တီးပေးပါမယ်။
-4. Render Dashboard → my-life-rpg-bot → Environment ထဲဝင်ပါ။
-5. Add Environment Variable: Key `BOT_TOKEN`, Value က BotFather token ဖြစ်ပါတယ်။ Save လုပ်ပြီး redeploy လုပ်ပါ။
-6. Service Logs မှာ Telegram polling started ပေါ်လာရင် Telegram မှာ ကိုယ့် Bot ကို `/start` ပို့စမ်းပါ။
+## အရေးကြီးသော ကန့်သတ်ချက်များ
 
-## အရေးကြီး
-- Render Free Web Service သည် idle ဖြစ်လျှင် sleep ဖြစ်နိုင်ပြီး အမြဲတမ်း 24/7 uptime အာမမခံပါ။
-- ဒီ starter သည် SQLite ကိုသုံးထားသည်။ Free instance ရဲ့ local filesystem သည် persistent မဖြစ်နိုင်သဖြင့် restart/redeploy ဖြစ်လျှင် player save များ ပျောက်နိုင်သည်။ အမြဲသိမ်းဆည်းရန် နောက်အဆင့်တွင် persistent PostgreSQL ချိတ်ဆက်ရမည်။
-- BotFather token ကို ဘယ်သူ့ကိုမှ မပို့ပါနှင့်။ Screenshot ပို့လျှင် token ကို ဖုံးထားပါ။
-- ယခု build သည် Chapter 1 demo ဖြစ်ပြီး Character portrait/images နှင့် romance/quest systems မပါသေးပါ။
+- Free web service သည် idle ဖြစ်လျှင် sleep ဖြစ်နိုင်သည်။
+- ဤ starter သည် JSON file ဖြင့် save လုပ်ထားသောကြောင့် Render restart/redeploy လုပ်သည့်အခါ save data ပျောက်နိုင်သည်။
+- Production အတွက် persistent database (ဥပမာ PostgreSQL) နှင့် error logging ထပ်ထည့်ရန်လိုသည်။
+- Bot token ကို GitHub ထဲ မတင်ပါနှင့်။
